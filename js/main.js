@@ -17,7 +17,6 @@ const getPokemon = async id =>{
   pokemonCard(pokemon);
 }
 
-let isGreen = false;
 
 const pokemonCard = (pokemon) => {
   const pokemonDiv = document.createElement('div');
@@ -30,7 +29,7 @@ const pokemonCard = (pokemon) => {
     <span>${id}</span>
 
     <div class = "img-container">
-      <img src="${sprites.front_shiny}" alt="${name}" />
+      <img src="${sprites.front_default}" alt="${name}" />
     </div>
 
     <div class="info">
@@ -41,6 +40,9 @@ const pokemonCard = (pokemon) => {
 
   pokemonDiv.innerHTML = pokeInnerHTML;
 
+  let isShiny = false;
+  let isGreen = false;
+
   //toggle the color
   pokemonDiv.addEventListener('click',() =>{
     if(isGreen){
@@ -50,8 +52,20 @@ const pokemonCard = (pokemon) => {
       pokemonDiv.style.backgroundColor = "#5C8984";
       isGreen = true;
     }
+
+    const pokemonImg = pokemonDiv.querySelector('img');
     
-  })
+
+    if(isShiny){
+      pokemonImg.src = sprites.front_default;
+      isShiny = false;
+    } else{
+      pokemonImg.src = sprites.front_shiny;
+      isShiny = true;
+    }
+    
+  });
+  
 
   pokemonContainer.appendChild(pokemonDiv);
 }
